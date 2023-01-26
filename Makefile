@@ -20,7 +20,8 @@ options:
 ${OBJ}: config.h config.mk
 
 config.h:
-	cp config.def.h $@
+	echo 'Ingoring `config.def.h`'
+	#cp config.def.h $@
 
 dwm: ${OBJ}
 	${CC} -o $@ ${OBJ} ${LDFLAGS}
@@ -37,6 +38,7 @@ dist: clean
 	rm -rf dwm-${VERSION}
 
 install: all
+	pacman -S --needed xorg-server xorg-xinit libx11 libxft libxinerama
 	mkdir -p ${DESTDIR}${PREFIX}/bin
 	cp -f dwm ${DESTDIR}${PREFIX}/bin
 	chmod 755 ${DESTDIR}${PREFIX}/bin/dwm
